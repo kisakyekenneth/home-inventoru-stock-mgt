@@ -1,0 +1,14 @@
+{
+    "name": "kanzucodelimited/kanzu-maksph",
+    "description": "MakSPH grants tracker",
+    "authors": [
+        {
+            "name": "Kenneth Kisakye",
+            "email": "kanyecope@gmail.com"
+        }
+    ],
+    "require": {
+        "eftec/bladeone": "^4.6",
+        "shuchkin/simplexlsxgen": "^1.2"
+    }
+}

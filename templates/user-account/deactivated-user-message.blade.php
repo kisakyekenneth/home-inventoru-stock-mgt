@@ -1,0 +1,2 @@
+<input type = "text" name = "{{$label}}" id = "{{$label}}" aria-describedby="kc-deactivated-account-message-desc" value = "{{$value}}" class = "regular-text ltr">
+<p class = "description" id = "kc-deactivated-account-message-desc">{{$description}}</p>

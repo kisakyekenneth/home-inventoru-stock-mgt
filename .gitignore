@@ -1,0 +1,7 @@
+/vendor/
+/templates_cache/
+/mpdf_temp/
+composer.lock
+.DS_Store
+composer.phar
+.env.testing
