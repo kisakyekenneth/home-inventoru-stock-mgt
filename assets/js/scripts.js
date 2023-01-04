@@ -270,24 +270,15 @@
 
     var grantUpdateModal = function () {
       $(".btn-edit-grant").on("click", function () {
-        let grantData = JSON.parse($(this).data("gdata"));
+        let salesData = JSON.parse($(this).data("gdata"));
         let myModal = jQuery("#edit-grants-details");
-        $("#grant-id").val(grantData.id);
-        $("#grant-name").val(grantData.grant_name);
-        $("#edit-principal").val(grantData.principal);
-        $("#edit-dept").val(grantData.maksph_dept);
-        $("#edit-funder").val(grantData.grant_funder);
-        $("#edit-currency").val(grantData.grant_fund_currency);
-        $("#edit-grant_fund_amount").val(grantData.grant_fund_amount);
-        $("#edit-gend-date").val(grantData.grant_end_date);
-        $("#edit-gstart-date").val(grantData.grant_start_date);
-        $("#edit-subcontracts").val(grantData.subcontracts);
-
-        $("#edit-grant-description").val(grantData.grant_description);
-        $("#edit-issue-date").val(grantData.issue_date);
-        $("#edit-institution").val(grantData.institution);
-        $("#edit-country").val(grantData.country);
-        $("#update-grant-id").val(grantData.maksph_grant_id);
+        $("#sales-id").val(salesData.id);
+        $("#u-client-name").val(salesData.client_name);
+        $("#u-telephone").val(salesData.client_telephone);
+        $("#u-quantity").val(salesData.quantity);
+        $("#u-particular").val(salesData.particular);
+        $("#u-rate").val(salesData.rate);
+        $("#u-amount").val(salesData.amount_paid);
 
         myModal.modal("show");
 
@@ -297,7 +288,10 @@
             var form = $("#form-update-grant").closest("form");
             var formData = new FormData(form[0]);
             var button = $(this);
-            button.html("Updating...");
+            button.attr("disabled", true);
+            button.html(
+              " Updating " + '<i class="fa fa-spinner fa-spin"> </i>'
+            );
 
             $.ajax({
               type: "POST",

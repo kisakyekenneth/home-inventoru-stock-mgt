@@ -28,10 +28,12 @@ $currencies = get_currencies(); ?>
                                     <th>ID</th>
                                     <th>Client Name</th>
                                     <th>Telephone</th>
-                                    <th>Quantity</th>
                                     <th>Particular</th>
+                                    <th>Qty</th>
                                     <th>Rate</th>
-                                    <th>Amount</th>
+                                    <th>Total Price</th>
+                                    <th>Paid</th>
+                                    <th> Balance</th>
                                     <th> Date</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -42,10 +44,12 @@ $currencies = get_currencies(); ?>
                                     <td>{{ $sale['id'] }}</td>
                                     <td> {{ $sale['client_name'] }}</td>
                                     <td> {{ $sale['client_telephone'] }}</td>
-                                    <td> {{ $sale['quantity'] }}</td>
                                     <td> {{ $sale['particular'] }}</td>
+                                    <td> {{ $sale['quantity'] }}</td>
                                     <td> {{ $sale['rate'] }}</td>
                                     <td>{{ $sale['amount_paid'] }} </td>
+                                    <td></td>
+                                    <td></td>
                                     <td> {{ $sale['date'] }}</td>
 
                                     <td>
@@ -91,7 +95,7 @@ $currencies = get_currencies(); ?>
                         <div class="row">
                             <div class="form-group col-sm-12">
                                 <label for="grant_id">Telephone:</label>
-                                <input type="text" class="form-control" id="telephone" name="client_telephone" required>
+                                <input type="number" class="form-control" id="telephone" name="client_telephone" required>
                             </div>
 
                         </div>
@@ -99,7 +103,7 @@ $currencies = get_currencies(); ?>
                         <div class="row">
                             <div class="form-group col-sm-12">
                                 <label for="grant_name">Quantity:</label>
-                                <textarea name="quantity" id="quantity"></textarea>
+                                <input type="number" class="form-control" id="quantity" name="quantity" required>
                             </div>
 
                         </div>
@@ -108,19 +112,19 @@ $currencies = get_currencies(); ?>
 
                             <div class="form-group col-sm-12">
                                 <label for="principal">Particular:</label>
-                                <input type="text" class="form-control" id="particular" name="particular" required>
+                                <textarea name="particular" id="particular"></textarea>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-sm-12">
                                 <label for="funder">Rate: </label>
-                                <input type="text" class="form-control" id="rate" name="rate" required>
+                                <input type="number" class="form-control" id="rate" name="rate" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-12">
-                                <label for="fund_amount"> Amount</label>
+                                <label for="fund_amount"> Amount Paid</label>
                                 <input type="number" class="form-control" id="amount" name="amount_paid" required>
                             </div>
 
@@ -144,7 +148,7 @@ $currencies = get_currencies(); ?>
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Update Grant Details</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Update sales Details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -162,7 +166,7 @@ $currencies = get_currencies(); ?>
                         <div class="row">
                             <div class="form-group col-sm-12">
                                 <label for="grant_id">Telephone:</label>
-                                <input type="text" class="form-control" id="u-telephone" name="client_telephone" required>
+                                <input type="number" class="form-control" id="u-telephone" name="client_telephone" required>
                             </div>
 
                         </div>
@@ -170,34 +174,33 @@ $currencies = get_currencies(); ?>
                         <div class="row">
                             <div class="form-group col-sm-12">
                                 <label for="grant_name">Quantity:</label>
-                                <textarea name="quantity" id="u-quantity"></textarea>
+                                <input type="number" class="form-control" id="u-quantity" name="quantity" required>
                             </div>
 
                         </div>
 
                         <div class="row">
-
                             <div class="form-group col-sm-12">
                                 <label for="principal">Particular:</label>
-                                <input type="text" class="form-control" id="u-particular" name="particular" required>
+                                <textarea name="particular" id="u-particular"></textarea>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="form-group col-sm-12">
                                 <label for="funder">Rate: </label>
-                                <input type="text" class="form-control" id="u-rate" name="rate" required>
+                                <input type="number" class="form-control" id="u-rate" name="rate" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-sm-12">
-                                <label for="fund_amount"> Amount</label>
+                                <label for="fund_amount"> Amount Paid</label>
                                 <input type="number" class="form-control" id="u-amount" name="amount_paid" required>
                             </div>
 
                         </div>
 
-                        <input id="grant-id" name="grant_id" type="hidden" value="">
+                        <input id="sales-id" name="grant_id" type="hidden" value="">
                         <input name="user_id" type="hidden" value="<?php echo get_current_user_id(); ?>">
 
                         <?php wp_nonce_field('maksph_update_grant_nonce', 'maksph_update_grant_nonce_field'); ?>
@@ -205,8 +208,8 @@ $currencies = get_currencies(); ?>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary dismiss-grant-creation" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary update-grant" data-count="1">Update Grant</button>
+                    <button type="button" class="btn btn-danger dismiss-grant-creation" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success update-grant" data-count="1">Update Record</button>
                 </div>
             </div>
         </div>

@@ -8,7 +8,7 @@ class Scripts
 {
     public function __construct()
     {
-        $this->version = '0.0.0.3';
+        $this->version = '0.0.0.4';
     }
 
     public function register_scripts()

@@ -146,6 +146,8 @@ class ManageGrants
             $rate = sanitize_text_field($_POST['rate']);
             $amount_paid = sanitize_text_field($_POST['amount_paid']);
             $quantity = sanitize_text_field($_POST['quantity']);
+            $total_price = $quantity * $rate;
+            $balance = $total_price - $amount_paid;
 
             $details =  [
                 'post_title' => $client_name,
@@ -161,6 +163,8 @@ class ManageGrants
             update_post_meta($post_id, '_rate', $rate);
             update_post_meta($post_id, '_amount_paid', $amount_paid);
             update_post_meta($post_id, '_quantity', $quantity);
+            update_post_meta($post_id, '_total_price', $total_price);
+            update_post_meta($post_id, '_balance', $balance);
             update_post_meta($post_id, '_sale_date', date('d-m-Y'));
 
             wp_send_json_success();
