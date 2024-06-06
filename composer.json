@@ -1,6 +1,6 @@
 {
-    "name": "kanzucodelimited/kanzu-maksph",
-    "description": "MakSPH grants tracker",
+    "name": "newjerusalemhealingm/njhm-church",
+    "description": "New Jerusalem Healing Ministry Portal",
     "authors": [
         {
             "name": "Kenneth Kisakye",
@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "eftec/bladeone": "^4.6",
+        "eftec/bladeone": "^4.13",
         "shuchkin/simplexlsxgen": "^1.2"
     }
 }

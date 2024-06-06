@@ -1,6 +1,6 @@
 <?php
 
-namespace Kanzu\MakSPH;
+namespace Njhm\Church;
 
 /**
  * Register hooks used in the plugin
@@ -19,7 +19,7 @@ class Hook_Registry
         $membership_registration = new Manage_Users();
         $manage_user_account      = new ManageUserAccount();
         $manage_settings = new Manage_Settings();
-        $manage_grants = new ManageGrants();
+        $manage_choir = new ManageChoir();
         //Enqueue Styles and Scripts
         add_action('wp_enqueue_scripts', [$scripts, 'register_scripts']);
 
@@ -27,26 +27,26 @@ class Hook_Registry
         add_filter('login_redirect', [$manage_user_account, 'user_complete_profile']);
 
         //Create dashboad shortcode.
-        add_shortcode('dept_report', [$manage_grants, 'get_user_reports']);
+        add_shortcode('new_member_register', [$manage_choir, 'new_members']);
 
         //Capture new grant details
-        add_action('wp_ajax_kisozi_new_sales', [$manage_grants, 'save_new_sales']);
+        add_action('wp_ajax_njhm_new_choir_member', [$manage_choir, 'njhm_new_choir_member']);
 
         //Call to Update and Delete grant project
-        add_action('wp_ajax_maksph_updates_grant', [$manage_grants, 'update_grant_details']);
-        add_action('wp_ajax_delete_grant_details', [$manage_grants, 'delete_grant_data']);
+        add_action('wp_ajax_update_member_data', [$manage_choir, 'update_member_data']);
+        add_action('wp_ajax_delete_grant_details', [$manage_choir, 'delete_grant_data']);
 
         //Call to download excel file
-        add_action('wp_ajax_kc_download_grants_data', [$manage_grants, 'download_grant_registry_report']);
+        add_action('wp_ajax_kc_download_grants_data', [$manage_choir, 'download_grant_registry_report']);
 
         //Manage file upload
-        add_action('wp_ajax_kc_maksph_upload_files', [$manage_grants, 'upload_user_membership_files']);
+        add_action('wp_ajax_kc_maksph_upload_files', [$manage_choir, 'upload_user_membership_files']);
 
         // Save subcontract Details
-        add_action('wp_ajax_maksph_subcontract_grant', [$manage_grants, 'save_subcontract']);
+        add_action('wp_ajax_maksph_subcontract_grant', [$manage_choir, 'save_subcontract']);
 
         // Update subcontract Details
-        add_action('wp_ajax_maksph_update_subcontracts', [$manage_grants, 'update_subcontract_details']);
+        add_action('wp_ajax_maksph_update_subcontracts', [$manage_choir, 'update_subcontract_details']);
 
         //Register Posts
         add_action('init', [$manage_settings, 'register_posts']);

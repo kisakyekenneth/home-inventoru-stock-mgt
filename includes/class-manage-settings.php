@@ -1,6 +1,6 @@
 <?php
 
-namespace Kanzu\MakSPH;
+namespace Njhm\Church;
 
 class Manage_Settings
 {

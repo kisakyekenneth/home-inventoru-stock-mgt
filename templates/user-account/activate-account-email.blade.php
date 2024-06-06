@@ -1,4 +1,4 @@
-<link rel='stylesheet' href='<?php echo KANZU_MAKSPH_DIR; ?>assets/css/styles.css' type='text/css' />
+<link rel='stylesheet' href='<?php echo NJHM_DIR; ?>assets/css/styles.css' type='text/css' />
 <div class="membership-activate-account">
     <div class="account-container">
         <div class="header" style="border-bottom: 1px solid #ddd; padding: 20px 0; text-align: center;">

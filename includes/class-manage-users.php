@@ -1,6 +1,6 @@
 <?php
 
-namespace Kanzu\MakSPH;
+namespace Njhm\Church;
 
 use eftec\bladeone\BladeOne;
 

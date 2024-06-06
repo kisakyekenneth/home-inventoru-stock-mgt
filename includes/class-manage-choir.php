@@ -1,16 +1,16 @@
 <?php
 
-namespace Kanzu\MakSPH;
+namespace Njhm\Church;
 
 use eftec\bladeone\BladeOne;
 use Shuchkin\SimpleXLSXGen;
 
-class ManageGrants
+class ManageChoir
 {
-    function get_user_reports()
+    function new_members()
     {
-        $views     = KANZU_MAKSPH_DIR . '/templates/manage-grants/';
-        $cache     = KANZU_MAKSPH_DIR . '/templates_cache/';
+        $views     = NJHM_DIR . '/templates/choir/';
+        $cache     = NJHM_DIR . '/templates_cache/';
         $blade     = new BladeOne($views, $cache, BladeOne::MODE_AUTO);
         $data = [];
 
@@ -98,74 +98,72 @@ class ManageGrants
             }
 
 
-            $html      = $blade->run('manage-grant-details', $data);
+            $html      = $blade->run('member-details', $data);
         } else {
-            $data['sales'] = [];
+            $data['members'] = [];
 
             $args = [
                 'numberposts' => -1,
-                'post_type' => 'kisozi-sales',
+                'post_type' => 'njhm-choir-member',
             ];
 
-            $sales = get_posts($args);
+            $members = get_posts($args);
 
-            foreach ($sales as $key => $sale) {
-                $sales_id = $sale->ID;
-                $client_telephone =    get_post_meta($sale->ID, '_client_telephone', true);
-                $particular =  get_post_meta($sale->ID, '_particular', true);
-                $rate =  get_post_meta($sale->ID, '_rate', true);
-                $amount_paid = get_post_meta($sale->ID, '_amount_paid', true);
-                $quantity =   get_post_meta($sale->ID, '_quantity', true);
-                $client_name =  get_post_field('post_title', $sale->ID);
-                $sale_date = get_post_meta($sale->ID, '_sale_date', true);
+            foreach ($members as $key => $member) {
+                $member_id = $member->ID;
+                $member_name =    get_post_meta($member->ID, '_member_name', true);
+                $joining_date =  get_post_meta($member->ID, '_joining_date', true);
+                $telephone =  get_post_meta($member->ID, '_telephone', true);
+                $residence = get_post_meta($member->ID, '_residence', true);
+                $baptised =   get_post_meta($member->ID, '_baptised', true);
+                $baptism_church = get_post_meta($member->ID, '_baptism_church', true);
+                $marital_status = get_post_meta($member->ID, '_marital_status', true);
 
-                $data['sales'][] = [
-                    'id' => $sales_id,
-                    'client_name' => $client_name,
-                    'client_telephone' => $client_telephone,
-                    'particular' => $particular,
-                    'rate' => $rate,
-                    'quantity' => $quantity,
-                    'amount_paid' => $amount_paid,
-                    'date' => $sale_date
+                $data['members'][] = [
+                    'id' => $member_id,
+                    'member_name' => $member_name,
+                    'joining_date' => $joining_date,
+                    'telephone' => $telephone,
+                    'residence' => $residence,
+                    'baptised' => $baptised,
+                    'baptism_church' => $baptism_church,
+                    'marital_status' => $marital_status
 
                 ];
             }
-            $html      = $blade->run('manage-new-grants', $data);
+            $html      = $blade->run('new-members', $data);
         }
 
         echo $html;
     }
 
-    function save_new_sales()
+    function njhm_new_choir_member()
     {
-        if (wp_verify_nonce($_POST['maksph_new_grant_nonce_field'], 'maksph_new_grant_nonce')) {
-            $client_name = sanitize_text_field($_POST['client_name']);
-            $client_telephone = sanitize_text_field($_POST['client_telephone']);
-            $particular = sanitize_text_field($_POST['particular']);
-            $rate = sanitize_text_field($_POST['rate']);
-            $amount_paid = sanitize_text_field($_POST['amount_paid']);
-            $quantity = sanitize_text_field($_POST['quantity']);
-            $total_price = $quantity * $rate;
-            $balance = $total_price - $amount_paid;
+        if (wp_verify_nonce($_POST['njhm_new_member_nonce_field'], 'njhm_new_member_nonce')) {
+            $member_name = sanitize_text_field($_POST['memberName']);
+            $joining_date = sanitize_text_field($_POST['joining_date']);
+            $telephone = sanitize_text_field($_POST['telephone']);
+            $residence = sanitize_text_field($_POST['residence']);
+            $baptised = sanitize_text_field($_POST['baptised']);
+            $baptism_church = sanitize_text_field($_POST['baptismChurch']);
+            $marital_status = sanitize_text_field($_POST['marital_status']);
 
             $details =  [
-                'post_title' => $client_name,
+                'post_title' => $member_name,
                 'post_status' => 'publish',
-                'post_content' => $client_name .  ' Details',
-                'post_type' => 'kisozi-sales',
+                'post_content' => $member_name .  ' Data',
+                'post_type' => 'njhm-choir-member',
                 'post_author' => get_current_user_id()
             ];
 
             $post_id = wp_insert_post($details);
-            update_post_meta($post_id, '_client_telephone', $client_telephone);
-            update_post_meta($post_id, '_particular', $particular);
-            update_post_meta($post_id, '_rate', $rate);
-            update_post_meta($post_id, '_amount_paid', $amount_paid);
-            update_post_meta($post_id, '_quantity', $quantity);
-            update_post_meta($post_id, '_total_price', $total_price);
-            update_post_meta($post_id, '_balance', $balance);
-            update_post_meta($post_id, '_sale_date', date('d-m-Y'));
+            update_post_meta($post_id, '_member_name', $member_name);
+            update_post_meta($post_id, '_joining_date', $joining_date);
+            update_post_meta($post_id, '_telephone', $telephone);
+            update_post_meta($post_id, '_residence', $residence);
+            update_post_meta($post_id, '_baptised', $baptised);
+            update_post_meta($post_id, '_baptism_church', $baptism_church);
+            update_post_meta($post_id, '_marital_status', $marital_status);
 
             wp_send_json_success();
         } else {
@@ -173,30 +171,29 @@ class ManageGrants
         }
     }
 
-    function update_grant_details()
+    function update_member_data()
     {
-        if (wp_verify_nonce($_POST['maksph_update_grant_nonce_field'], 'maksph_update_grant_nonce')) {
-            $client_name = sanitize_text_field($_POST['client_name']);
-            $client_telephone = sanitize_text_field($_POST['client_telephone']);
-            $particular = sanitize_text_field($_POST['particular']);
-            $rate = sanitize_text_field($_POST['rate']);
-            $amount_paid = sanitize_text_field($_POST['amount_paid']);
-            $quantity = sanitize_text_field($_POST['quantity']);
+        if (wp_verify_nonce($_POST['njhm_update_member_nonce_field'], 'njhm_update_member_nonce')) {
+           
 
-            $sales_id = sanitize_text_field($_POST['grant_id']);
+
+            $post_id = sanitize_text_field($_POST['member_id']);
+            $member_name = sanitize_text_field($_POST['memberName']);
+            $joining_date = sanitize_text_field($_POST['joining_date']);
+            $telephone = sanitize_text_field($_POST['telephone']);
+            $residence = sanitize_text_field($_POST['residence']);
 
             $details =  [
-                'ID'           => $sales_id,
-                'post_title' => $client_name,
-                'post_content' => $client_name,
+                'ID'           => $post_id,
+                'post_title' => $member_name,
+                'post_content' => $member_name,
             ];
 
             wp_update_post($details);
-            update_post_meta($sales_id, '_client_telephone', $client_telephone);
-            update_post_meta($sales_id, '_particular', $particular);
-            update_post_meta($sales_id, '_rate', $rate);
-            update_post_meta($sales_id, '_amount_paid', $amount_paid);
-            update_post_meta($sales_id, '_quantity', $quantity);
+            update_post_meta($post_id, '_member_name', $member_name);
+            update_post_meta($post_id, '_joining_date', $joining_date);
+            update_post_meta($post_id, '_telephone', $telephone);
+            update_post_meta($post_id, '_residence', $residence);
 
             wp_send_json_success();
         } else {
@@ -364,8 +361,8 @@ class ManageGrants
 
     function display_grant_details($grant_id)
     {
-        $views     = KANZU_MAKSPH_DIR . '/templates/manage-grants/';
-        $cache     = KANZU_MAKSPH_DIR . '/templates_cache/';
+        $views     = NJHM_DIR . '/templates/manage-grants/';
+        $cache     = NJHM_DIR . '/templates_cache/';
         $blade     = new BladeOne($views, $cache, BladeOne::MODE_AUTO);
 
         $grant_name = get_the_title($grant_id);

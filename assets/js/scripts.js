@@ -3,9 +3,9 @@
     $("#list-grants-tb").dataTable();
     $("#list-sub-contract-tb").dataTable();
     var init = function () {
-      captureNewGrant();
+      registerMember();
       datePicker();
-      grantUpdateModal();
+      memberUpdateModal();
       deleteGrantModal();
       downloadGrantsData();
       viewGrantDetails();
@@ -14,14 +14,16 @@
       subContractUpdateModal();
       editUploadFiles();
     };
-    var captureNewGrant = function () {
-      $(".save-grant").click(function () {
-        if ($("#form-new-grant").valid()) {
-          var form = $("#form-new-grant").closest("form");
+    var registerMember = function () {
+      $(".save-member").click(function () {
+        if ($("#new-member-form").valid()) {
+          var form = $("#new-member-form").closest("form");
           var formData = new FormData(form[0]);
           var button = $(this);
           button.attr("disabled", true);
-          button.html(" Saving " + '<i class="fa fa-spinner fa-spin"> </i>');
+          button.html(
+            " Submitting " + '<i class="fa fa-spinner fa-spin"> </i>'
+          );
 
           $.ajax({
             type: "POST",
@@ -29,7 +31,7 @@
             dataType: "json",
             processData: false,
             contentType: false,
-            url: kanzuMaksph.ajaxUrl,
+            url: newJHM.ajaxUrl,
             success: function (response) {
               if (response.success) {
                 location.reload();
@@ -268,24 +270,22 @@
       });
     };
 
-    var grantUpdateModal = function () {
-      $(".btn-edit-grant").on("click", function () {
-        let salesData = JSON.parse($(this).data("gdata"));
-        let myModal = jQuery("#edit-grants-details");
-        $("#sales-id").val(salesData.id);
-        $("#u-client-name").val(salesData.client_name);
-        $("#u-telephone").val(salesData.client_telephone);
-        $("#u-quantity").val(salesData.quantity);
-        $("#u-particular").val(salesData.particular);
-        $("#u-rate").val(salesData.rate);
-        $("#u-amount").val(salesData.amount_paid);
+    var memberUpdateModal = function () {
+      $(".btn-edit-member").on("click", function () {
+        let memberData = JSON.parse($(this).data("gdata"));
+        let myModal = jQuery("#edit-member-details");
+        $("#member-id").val(memberData.id);
+        $("#update_member_name").val(memberData.member_name);
+        $("#update_date_joining").val(memberData.joining_date);
+        $("#update_telephone").val(memberData.telephone);
+        $("#update_residence").val(memberData.residence);
 
         myModal.modal("show");
 
         //Update Details
-        $(".update-grant").click(function () {
-          if ($("#form-update-grant").valid()) {
-            var form = $("#form-update-grant").closest("form");
+        $(".update-member-data").click(function () {
+          if ($("#form-update-member").valid()) {
+            var form = $("#form-update-member").closest("form");
             var formData = new FormData(form[0]);
             var button = $(this);
             button.attr("disabled", true);
@@ -299,7 +299,7 @@
               dataType: "json",
               processData: false,
               contentType: false,
-              url: kanzuMaksph.ajaxUrl,
+              url: newJHM.ajaxUrl,
               success: function (response) {
                 if (response.success) {
                   location.reload();

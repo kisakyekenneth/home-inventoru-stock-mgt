@@ -1,6 +1,6 @@
 <?php
 
-namespace Kanzu\MakSPH;
+namespace Njhm\Church;
 
 use eftec\bladeone\BladeOne;
 
@@ -35,8 +35,8 @@ class ManageUserAccount
     public function settings_field_callback($args)
     {
         $form_name = 'deactivated-user-message';
-        $views     = KANZU_MAKSPH_DIR . '/templates/user-account/';
-        $cache     = KANZU_MAKSPH_DIR . '/templates_cache/';
+        $views     = NJHM_DIR . '/templates/user-account/';
+        $cache     = NJHM_DIR . '/templates_cache/';
         $data      = [
             'label' => esc_attr($args['label_for']),
             'value' => esc_attr(get_option('_kc_uipe_deactivated_account_message')),
@@ -106,8 +106,8 @@ class ManageUserAccount
     {
 
         $form_name = 'user-account-status';
-        $views     = KANZU_MAKSPH_DIR . '/templates/user-account/';
-        $cache     = KANZU_MAKSPH_DIR . '/templates_cache/';
+        $views     = NJHM_DIR . '/templates/user-account/';
+        $cache     = NJHM_DIR . '/templates_cache/';
         $data      = ['_kc_uipe_user_deactivated' => get_user_meta($user->ID, sanitize_key('_kc_uipe_user_deactivated'), true)];
         $blade     = new BladeOne($views, $cache, BladeOne::MODE_AUTO);
         $html      = $blade->run($form_name, $data);
@@ -129,8 +129,8 @@ class ManageUserAccount
     function new_user_notification_email($wp_new_user_notification_email, $user, $blogname)
     {
         $form_name           = 'activate-account-email';
-        $views               = KANZU_MAKSPH_DIR . '/templates/user-account/';
-        $cache               = KANZU_MAKSPH_DIR . '/templates_cache/';
+        $views               = NJHM_DIR . '/templates/user-account/';
+        $cache               = NJHM_DIR . '/templates_cache/';
         $key                 = get_password_reset_key($user);
         $data                = [
             'site_name' => __(get_bloginfo('name'), 'kanzucode'),
@@ -155,8 +155,8 @@ class ManageUserAccount
     {
 
         $form_name           = 'activated-account-email';
-        $views               = KANZU_MAKSPH_DIR . '/templates/user-account/';
-        $cache               = KANZU_MAKSPH_DIR . '/templates_cache/';
+        $views               = NJHM_DIR . '/templates/user-account/';
+        $cache               = NJHM_DIR . '/templates_cache/';
         $data                = [
             'site_name' => __(get_bloginfo('name'), 'kanzucode'),
             'site_description' => __(get_bloginfo('description'), 'kanzucode'),
@@ -185,6 +185,6 @@ class ManageUserAccount
     function user_complete_profile()
     {
 
-        return get_home_url() . '/admin-dashboard/manage-grants/';
+        return get_home_url() . '/admin-dashboard';
     }
 }

@@ -1,23 +1,23 @@
 <?php
 
 /**
- * Plugin Name: Kisozi Sales
- * Description: Kisozi General Motors Spare Parts 
- * Version:     2.0.0
- * Author:      Catherine Akoth
- * Author URI:  https:catherine.akoth.com
- * Text Domain: kisozi
+ * Plugin Name: NJHM Portal plugin
+ * Description: New Jerusalem Healing Ministries Portal
+ * Version:     1.0.0
+ * Author:      Kenneth Kisakye
+ * Author URI:  https:kennethkisakye.com
+ * Text Domain: njhm-portal-plugin
  */
 
 
-namespace Kanzu\MakSPH;
+namespace Njhm\Church;
 
 
 /**
  *
  * Main Plugin class
  */
-class Kanzu_MakSPH
+class New_Jerusalem_Hm
 {
 
     /**
@@ -36,7 +36,7 @@ class Kanzu_MakSPH
      *
      * Ensures only one instance of the class is loaded or can be loaded.
      *
-     * @return Kanzu_MakSPH An instance of the class.
+     * @return New_Jerusalem_Hm An instance of the class.
      * @since 1.2.0
      * @access public
      *
@@ -59,16 +59,16 @@ class Kanzu_MakSPH
      */
     public function register_includes()
     {
-        require_once(KANZU_MAKSPH_DIR . '/vendor/autoload.php');
-        require_once(KANZU_MAKSPH_DIR . '/includes/class-scripts.php');
+        require_once(NJHM_DIR . '/vendor/autoload.php');
+        require_once(NJHM_DIR . '/includes/class-scripts.php');
 
-        require_once(KANZU_MAKSPH_DIR . '/includes/class-manage-users.php');
-        require_once(KANZU_MAKSPH_DIR . '/includes/class-manage-settings.php');
+        require_once(NJHM_DIR . '/includes/class-manage-users.php');
+        require_once(NJHM_DIR . '/includes/class-manage-settings.php');
 
-        require_once(KANZU_MAKSPH_DIR . '/includes/class-manage-grant.php');
-        require_once(KANZU_MAKSPH_DIR . '/includes/class-manage-user-account.php');
+        require_once(NJHM_DIR . '/includes/class-manage-choir.php');
+        require_once(NJHM_DIR . '/includes/class-manage-user-account.php');
 
-        require_once(KANZU_MAKSPH_DIR . '/includes/class-hook-registry.php');
+        require_once(NJHM_DIR . '/includes/class-hook-registry.php');
     }
 
     /**
@@ -80,9 +80,9 @@ class Kanzu_MakSPH
      */
     function define_constants()
     {
-        define('KANZU_MAKSPH_DIR', __DIR__);
-        define('KANZU_MAKSPH_FILE', __FILE__);
-        define('KANZU_MAKSPH_URL', plugin_dir_url(__FILE__));
+        define('NJHM_DIR', __DIR__);
+        define('NJHM_FILE', __FILE__);
+        define('NJHM_URL', plugin_dir_url(__FILE__));
     }
 
     /**
@@ -104,4 +104,4 @@ class Kanzu_MakSPH
 }
 
 // Instantiate Plugin Class
-Kanzu_MakSPH::instance();
+New_Jerusalem_Hm::instance();
