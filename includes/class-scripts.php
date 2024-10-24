@@ -10,7 +10,7 @@ class Scripts
     public function __construct()
     {
         // $this->version = mt_rand(1, 9999);
-        $this->version = '1.2.0';
+        $this->version = '1.3.0';
     }
 
     public function register_scripts()
@@ -33,6 +33,25 @@ class Scripts
         wp_enqueue_script('jquery-ui-datepicker');
         wp_enqueue_script('jquery-validate', NJHM_URL . '/assets/js/jquery.validate.js');
         wp_enqueue_script('njhm-js', NJHM_URL . '/assets/js/scripts.js?version=' . $this->version, ['jquery-ui-datepicker', 'jquery-ui-dialog']);
+    }
+
+    /**
+     * Enqueue the custom version of the main JS file, used for overriding core
+     * functionality in the Customizer.
+     *
+     * @since 1.1.0
+     */
+    public function enqueue_custom_scripts()
+    {
+        wp_enqueue_script('custom-njhm-js', NJHM_URL . '/assets/js/scripts.js?version=' . $this->version, ['jquery-ui-datepicker', 'jquery-ui-dialog']);
+    }
+
+    public function check_plugin_status() {
+        if (!function_exists('is_plugin_active')) {
+            require_once(ABSPATH . 'wp-admin/includes/plugin.php');
+        }
+        if (is_plugin_active('wpschoolspress/wpschoolspress.php')) {
+            wp_enqueue_script('custom-njhm-js', NJHM_URL . '/assets/js/scripts.js?version=' . $this->version);        }
     }
 
     public function localise_data()

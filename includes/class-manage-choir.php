@@ -174,9 +174,6 @@ class ManageChoir
     function update_member_data()
     {
         if (wp_verify_nonce($_POST['njhm_update_member_nonce_field'], 'njhm_update_member_nonce')) {
-           
-
-
             $post_id = sanitize_text_field($_POST['member_id']);
             $member_name = sanitize_text_field($_POST['memberName']);
             $joining_date = sanitize_text_field($_POST['joining_date']);
@@ -329,36 +326,6 @@ class ManageChoir
         }
     }
 
-    function update_subcontract_details()
-    {
-        if (wp_verify_nonce($_POST['maksph_update_subcontract_nonce_field'], 'maksph_update_subcontract_nonce')) {
-            $institution = sanitize_text_field($_POST['institution']);
-            $principal = sanitize_text_field($_POST['principal']);
-            $_funder = sanitize_text_field($_POST['_funder']);
-            $_fund_amount = sanitize_text_field($_POST['_fund_amount']);
-            $_start_date = sanitize_text_field($_POST['_start_date']);
-            $_end_date = sanitize_text_field($_POST['_end_date']);
-            $_issue_date = sanitize_text_field($_POST['_issue_date']);
-            $_fund_currency = sanitize_text_field($_POST['_fund_currency']);
-            $source_country = sanitize_text_field($_POST['source_country']);
-            $subcontract_id = sanitize_text_field($_POST['subcontract_id']);
-
-            update_post_meta($subcontract_id, '_principal', $principal);
-            update_post_meta($subcontract_id, '_funder', $_funder);
-            update_post_meta($subcontract_id, '_fund_amount', $_fund_amount);
-            update_post_meta($subcontract_id, '_start_date', $_start_date);
-            update_post_meta($subcontract_id, '_end_date', $_end_date);
-            update_post_meta($subcontract_id, '_issue_date', $_issue_date);
-            update_post_meta($subcontract_id, '_fund_currency', $_fund_currency);
-            update_post_meta($subcontract_id, '_source_country', $source_country);
-            update_post_meta($subcontract_id, '_institution', $institution);
-
-            wp_send_json_success();
-        } else {
-            wp_send_json_error();
-        }
-    }
-
     function display_grant_details($grant_id)
     {
         $views     = NJHM_DIR . '/templates/manage-grants/';
@@ -467,4 +434,19 @@ class ManageChoir
 
         return $custom_download_path;
     }
+
+
+    // Add this to your custom plugin or theme's functions.php
+function custom_wpschoolpress_text_buffering_start() {
+    ob_start([$this,'custom_wpschoolpress_text_replace']);
+
+    return ob_get_clean();
+}
+
+function custom_wpschoolpress_text_replace($buffer) {
+    // Replace the original text with your custom text
+    $buffer = str_replace('Live as if you were to die tomorrow. Learn as if you were to live forever.', 'Your custom text', $buffer);
+    return $buffer;
+}
+
 }

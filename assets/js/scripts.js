@@ -3,6 +3,7 @@
     $("#list-grants-tb").dataTable();
     $("#list-sub-contract-tb").dataTable();
     var init = function () {
+      removeCustomText();
       registerMember();
       datePicker();
       memberUpdateModal();
@@ -13,6 +14,27 @@
       saveSubContractDetails();
       subContractUpdateModal();
       editUploadFiles();
+    };
+
+    var removeCustomText = function () {
+      alert("Hello");
+      // Check if the current URL contains "sch-"
+      if (window.location.href.indexOf("sch-") !== -1) {
+        // Your custom JavaScript code to run only on URLs containing "sch-"
+        console.log("URL contains 'sch-', executing custom script...");
+
+        // Example: Change text in WPSchoolPress element
+        var checkExist = setInterval(function () {
+          var messageElement = $(".wpsp-customeMsg");
+          if (messageElement.length) {
+            // Replace the text
+            messageElement.text("Your custom text here");
+            clearInterval(checkExist); // Stop checking once the element is found
+          }
+        }, 100); // Check every 100 milliseconds
+      } else {
+        console.log("URL does not contain 'sch-', script not executed.");
+      }
     };
     var registerMember = function () {
       $(".save-member").click(function () {

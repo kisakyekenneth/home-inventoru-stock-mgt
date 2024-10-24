@@ -185,6 +185,6 @@ class ManageUserAccount
     function user_complete_profile()
     {
 
-        return get_home_url() . '/admin-dashboard';
+        return get_home_url() . '/admin-dashboard/new-member-register/';
     }
 }

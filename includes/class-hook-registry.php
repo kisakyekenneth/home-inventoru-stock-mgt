@@ -20,6 +20,12 @@ class Hook_Registry
         $manage_user_account      = new ManageUserAccount();
         $manage_settings = new Manage_Settings();
         $manage_choir = new ManageChoir();
+
+        // Enqueue Styles and Scripts when the wpschoolspress plugin is active or loaded
+        // add_action('wpschoolspress_loaded', [$scripts, 'register_scripts']);
+        add_action('plugins_loaded', [$scripts, 'check_plugin_status']);
+
+
         //Enqueue Styles and Scripts
         add_action('wp_enqueue_scripts', [$scripts, 'register_scripts']);
 
@@ -50,6 +56,8 @@ class Hook_Registry
 
         //Register Posts
         add_action('init', [$manage_settings, 'register_posts']);
+
+        add_action('template_redirect', [$manage_choir,'custom_wpschoolpress_text_buffering_start']);
     }
 
     /**
